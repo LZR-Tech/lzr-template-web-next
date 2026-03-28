@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Design System tokens da LZR
+ * Handbook: "Zero hardcoded values — use Design System tokens"
+ * Customize as CSS variables abaixo conforme o projeto.
+ */
+:root {
+  --color-primary: #2563eb;
+  --color-secondary: #64748b;
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-error: #dc2626;
+  --color-background: #ffffff;
+  --color-foreground: #0f172a;
+}
