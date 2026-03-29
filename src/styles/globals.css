@@ -3,16 +3,183 @@
 @tailwind utilities;
 
 /*
- * Design System tokens da LZR
+ * LZR Design System v1.3 — Green Copilot
+ * Source: design.lzrtechnologies.com/greencopilot
  * Handbook: "Zero hardcoded values — use Design System tokens"
- * Customize as CSS variables abaixo conforme o projeto.
  */
+
+/* ===== LIGHT MODE ===== */
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+
+  /* Surfaces */
+  --bg: #F3F8F8;
+  --surface: #ffffff;
+  --elevated: #F3F8F8;
+  --border: #E2ECEC;
+  --border-hi: #C8D8D8;
+
+  /* Text */
+  --text-1: #182020;
+  --text-2: #4A6060;
+  --text-3: #8AA0A0;
+  --text-inv: #ffffff;
+
+  /* Primary Accent — Lizard Green */
+  --accent: #2E8B57;
+  --accent-hi: #227A4C;
+  --accent-lo: #3DAF6E;
+  --accent-bg: rgba(46, 139, 87, 0.08);
+  --accent-bd: rgba(46, 139, 87, 0.2);
+  --accent-glow: rgba(46, 139, 87, 0.2);
+
+  /* Secondary Accent — Amber Lizard */
+  --accent2: #C97B2E;
+  --accent2-hi: #E08C3A;
+  --accent2-lo: #F0A855;
+  --accent2-bg: rgba(201, 123, 46, 0.06);
+  --accent2-bd: rgba(201, 123, 46, 0.18);
+  --accent2-glow: rgba(201, 123, 46, 0.15);
+
+  /* Semantic */
+  --ok: #154D30;
+  --ok-bg: #EDFAF4;
+  --ok-bd: #CBF0DC;
+  --warn: #92680A;
+  --warn-bg: #FFFBEB;
+  --warn-bd: #FDE68A;
+  --err: #991B1B;
+  --err-bg: #FFF1F2;
+  --err-bd: #FECDD3;
+  --info: #1E3A5F;
+  --info-bg: #EFF8FF;
+  --info-bd: #BFDBFE;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.10), 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-accent: 0 4px 16px rgba(46, 139, 87, 0.18);
+
+  /* Gradients */
+  --grad-brand: linear-gradient(135deg, #1A6640 0%, #3DAF6E 65%, #C97B2E 100%);
+  --grad-surface: linear-gradient(135deg, #F3F8F8 0%, #ffffff 100%);
+  --grad-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  --grad-hero: linear-gradient(160deg, #F3F8F8 0%, #ffffff 40%, rgba(46, 139, 87, 0.06) 100%);
+
+  /* Data Visualization */
+  --dv-1: #3DAF6E;
+  --dv-2: #4a9ab8;
+  --dv-3: #c8a030;
+  --dv-4: #c05858;
+  --dv-5: #9b6bc8;
+  --dv-6: #c87a3a;
+  --dv-7: #4ab8a0;
+  --dv-8: #8aaa3D;
+}
+
+/* ===== DARK MODE — Floresta Noturna ===== */
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #080f0c;
+  --surface: #0d1a14;
+  --elevated: #12221a;
+  --border: #1a3028;
+  --border-hi: #254038;
+
+  --text-1: #d0e8d8;
+  --text-2: #7aaa8a;
+  --text-3: #4a7058;
+  --text-inv: #080f0c;
+
+  --accent: #2E8B57;
+  --accent-hi: #3DAF6E;
+  --accent-lo: #57C98A;
+  --accent-bg: rgba(46, 139, 87, 0.12);
+  --accent-bd: rgba(46, 139, 87, 0.28);
+  --accent-glow: rgba(46, 139, 87, 0.35);
+
+  --accent2: #C97B2E;
+  --accent2-hi: #E08C3A;
+  --accent2-lo: #F0A855;
+  --accent2-bg: rgba(201, 123, 46, 0.10);
+  --accent2-bd: rgba(201, 123, 46, 0.22);
+  --accent2-glow: rgba(201, 123, 46, 0.20);
+
+  --ok: #3DAF6E;
+  --ok-bg: rgba(61, 175, 110, 0.10);
+  --ok-bd: rgba(61, 175, 110, 0.25);
+  --warn: #c8a030;
+  --warn-bg: rgba(200, 160, 48, 0.10);
+  --warn-bd: rgba(200, 160, 48, 0.25);
+  --err: #c05858;
+  --err-bg: rgba(192, 88, 88, 0.10);
+  --err-bd: rgba(192, 88, 88, 0.25);
+  --info: #4a9ab8;
+  --info-bg: rgba(74, 154, 184, 0.10);
+  --info-bd: rgba(74, 154, 184, 0.25);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --shadow-accent: 0 4px 20px rgba(46, 139, 87, 0.3);
+
+  --grad-brand: linear-gradient(135deg, #1A6640 0%, #2E8B57 65%, #C97B2E 100%);
+  --grad-surface: linear-gradient(135deg, #0d1a14 0%, #12221a 100%);
+  --grad-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  --grad-hero: linear-gradient(160deg, #080f0c 0%, #0d1a14 40%, rgba(46, 139, 87, 0.08) 100%);
+}
+
+/* ===== SHARED TOKENS ===== */
 :root {
-  --color-primary: #2563eb;
-  --color-secondary: #64748b;
-  --color-success: #16a34a;
-  --color-warning: #d97706;
-  --color-error: #dc2626;
-  --color-background: #ffffff;
-  --color-foreground: #0f172a;
+  --font: 'Plus Jakarta Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
+  --display: 'Syne', sans-serif;
+
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+  --s7: 48px;
+  --s8: 64px;
+  --s9: 96px;
+
+  --r-xs: 2px;
+  --r-sm: 4px;
+  --r-md: 6px;
+  --r-lg: 8px;
+  --r-full: 9999px;
+
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 100ms;
+  --dur-base: 180ms;
+  --dur-slow: 300ms;
+}
+
+/* ===== BASE STYLES ===== */
+@layer base {
+  body {
+    background-color: var(--bg);
+    color: var(--text-1);
+    font-family: var(--font);
+    font-size: 0.875rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text-1);
+    font-family: var(--font);
+  }
+
+  ::selection {
+    background-color: var(--accent-bg);
+    color: var(--accent-hi);
+  }
 }
