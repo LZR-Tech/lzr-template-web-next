@@ -1,7 +1,7 @@
 # LZR Web Template — Instruções para IA
 
+> **Engineering Handbook v2.2** — Toda alteração de regra segue `governance.md` (versionar → propagar → enforcement)
 > Este arquivo é lido automaticamente pelo Claude Code antes de qualquer tarefa.
-> Todas as regras aqui são OBRIGATÓRIAS.
 
 ## Idioma
 - **SEMPRE** responder em português brasileiro (pt-BR)
@@ -11,14 +11,28 @@
 
 | Documento | URL | O que define |
 |-----------|-----|-------------|
-| **Design System (fundação)** | https://design.lzrtechnologies.com | Fontes, spacing, radius, motion, componentes — FIXO para todos os apps |
+| **Design System v1.3 (fundação)** | https://design.lzrtechnologies.com | Fontes, spacing, radius, motion, componentes — FIXO para todos os apps |
 | **Design System (projeto)** | https://design.lzrtechnologies.com/__PRODUCT_SLUG__ | Paleta de cores, superfícies, tom de voz, density, trilha UX — específico deste projeto |
-| **Engineering Handbook** | https://code.lzrtechnologies.com | Arquitetura, padrões de código, CI/CD, segurança |
+| **Engineering Handbook v2.2** | https://code.lzrtechnologies.com | Arquitetura, padrões de código, CI/CD, segurança, governança |
 
 > **IMPORTANTE**: Ao iniciar um projeto com `/new-project`, substitua `__PRODUCT_SLUG__` pelo nome do projeto.
-> Se `__PRODUCT_SLUG__` ainda não foi substituído, consultar o design system base em design.lzrtechnologies.com.
 
 Em caso de dúvida entre o que está no código e o que está nesses documentos, **o documento vence**.
+
+### Referência rápida do DS
+
+| O que preciso? | Onde consultar |
+|----------------|---------------|
+| Cores, spacing, radius, shadows | `design-system/01-tokens.md` |
+| Fontes, escalas, labels | `design-system/02-typography.md` |
+| Button, Input, Card, Badge, Toggle | `design-system/03-components.md` |
+| Table, Modal, Tabs, Toast, Empty State | `design-system/04-patterns.md` |
+| Grid, Sidebar, Breakpoints | `design-system/05-layout.md` |
+| Focus, ARIA, Contraste, Motion | `design-system/06-accessibility.md` |
+| Voz, tom, mensagens de UI | `design-system/07-voice-tone.md` |
+| Logo, marca, ilustrações | `design-system/08-brand.md` |
+| i18n, formatação pt-BR/en-US | `design-system/09-i18n.md` |
+| Theming multi-produto, data-product | `design-system/10-theming.md` |
 
 ---
 
@@ -55,6 +69,7 @@ Estes elementos são **FIXOS para todos os projetos LZR**:
 - Transições padrão: `duration-base` (180ms)
 - Modais/overlays: `duration-slow` (300ms)
 - **NUNCA** animar mais de 2 propriedades CSS simultaneamente
+- Framer Motion obrigatório com MotionProvider global (`reducedMotion="user"`)
 
 ### Icons
 - **Lucide Icons** — biblioteca padrão para todos os projetos
@@ -84,13 +99,12 @@ Estes elementos são **específicos deste projeto** e definidos na sub-página:
 - **SEMPRE** usar tokens via Tailwind: `text-text-1`, `text-accent`, `bg-surface`, `border-border`, etc.
 
 ### Dark Mode
-- Definido via `[data-theme='dark']` em `globals.css`
-- **NUNCA** usar `dark:` prefix do Tailwind — os tokens CSS já se adaptam automaticamente
-- Toggle de tema: `data-theme` attribute no `<html>` com persistência em localStorage
+- CSS variables mudam automaticamente entre light e dark
+- **NUNCA** usar `dark:` prefix do Tailwind — tokens já se adaptam
 
 ---
 
-## Arquitetura — Padrões do Handbook
+## Arquitetura — Padrões do Handbook v2.2
 
 ### Server Components por padrão
 - Só adicionar `'use client'` quando houver interatividade (state, effects, event handlers)
@@ -106,7 +120,9 @@ src/
 │   ├── layouts/      # Layouts reutilizáveis (Sidebar, Topbar, etc.)
 │   └── features/     # Componentes por feature (domain-specific)
 ├── hooks/            # Custom hooks
-├── lib/              # Utilitários e configs
+├── lib/              # Utilitários, configs, query-keys, query-config
+├── services/         # Service Layer (regras de negócio)
+├── types/            # Tipos centralizados
 └── styles/           # CSS global e tokens
 ```
 
@@ -119,21 +135,44 @@ src/
 - **SEMPRE** React Hook Form + Zod
 - Schema Zod define a validação, `@hookform/resolvers` conecta ao form
 
-### Estado
-- **React Query** para server state (dados do backend)
-- **Zustand** para client state mínimo (UI state, preferências)
-- **NUNCA** usar Context API para estado global
+### Data Fetching — React Query (obrigatório)
 
-### Formatação pt-BR
-| Tipo | Formato | Exemplo |
-|------|---------|---------|
-| Data | DD/MM/YYYY | 25/03/2025 |
-| DateTime | DD/MM/YYYY - HH:mm | 25/03/2025 - 14:32 |
-| Moeda | R$ 0.000,00 | R$ 2.400.000,00 |
-| CNPJ | 00.000.000/0000-00 | 12.345.678/0001-90 |
-| CPF | 000.000.000-00 | 123.456.789-09 |
-| Telefone | (00) 00000-0000 | (11) 98765-4321 |
-| CEP | 00000-000 | 80240-210 |
+**PROIBIDO** usar `useState` + `useEffect` para carregar dados do servidor. Todo data fetching DEVE usar React Query.
+
+```tsx
+// ✅ CORRETO — React Query
+const { data, isLoading } = useQuery({
+  queryKey: queryKeys.bids.list(),
+  queryFn: () => bidService.getAll(),
+})
+
+// ❌ PROIBIDO — useState + useEffect para server data
+const [bids, setBids] = useState([])
+useEffect(() => { bidService.getAll().then(setBids) }, [])
+```
+
+| Regra | Implementação |
+|-------|---------------|
+| Nova query | Registrar key em `query-keys.ts` |
+| Cache | Config em `query-config.ts` |
+| Mutations | `onMutate` otimista + `onError` rollback |
+| UI state | `useState` permitido APENAS para drafts, isEditing, filtros |
+
+### Navegação
+- **Botão "Voltar" DEVE usar `router.back()`** — nunca `router.push('/rota-fixa')` para retroceder
+- `router.push()` é para navegação intencional (ir para uma nova página)
+
+### Toasts
+- **NUNCA** emojis em toasts — usar Lucide icons via `createElement`
+
+```tsx
+import { createElement } from "react"
+import { Archive } from "lucide-react"
+toast.success("Sucesso!", { icon: createElement(Archive, { className: "w-4 h-4" }) })
+```
+
+### Lazy Loading
+- Modais e componentes pesados: `next/dynamic` com `{ ssr: false }`
 
 ---
 
@@ -150,6 +189,18 @@ src/
 - **NUNCA** exportar `default` em componentes — usar named exports
 - Exceção: `page.tsx`, `layout.tsx`, `route.ts` (Next.js exige default)
 
+### Comentários explicativos
+- **Decisões de arquitetura** — por que escolhemos esse pattern
+- **Trade-offs** — o que ganhamos vs o que perdemos
+- **Workarounds** — quando contornamos uma limitação de lib/framework
+- **Regras de negócio** — lógica que vem do domínio
+- **NÃO comentar** código óbvio, imports, CRUD trivial
+
+### Services
+- **JSDoc obrigatório** em todo método público
+- **Paginação obrigatória** em todo `getAll()` (`.range()` ou `.limit()`)
+- **Testes** — feature nova = teste novo
+
 ### Commits
 - Conventional Commits: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`
 - Header máximo: 100 caracteres
@@ -165,18 +216,37 @@ src/
 
 | Pacote | Versão | Propósito |
 |--------|--------|-----------|
-| next | ^15 | Framework |
+| next | ^16 | Framework |
 | react | ^19 | UI |
 | typescript | ^5.6 | Linguagem |
-| tailwindcss | ^3.4 | Estilos |
+| tailwindcss | ^4 | Estilos |
 | @tanstack/react-query | ^5 | Server state |
-| zustand | ^5 | Client state |
+| framer-motion | ^11 | Animações |
 | react-hook-form | ^7 | Formulários |
 | zod | ^3 | Validação |
+| sonner | ^1 | Toasts |
+| lucide-react | ^0.400+ | Ícones |
 | vitest | ^2 | Testes unitários |
 | @playwright/test | ^1 | Testes E2E |
 
 **NUNCA** adicionar dependências sem verificar se já existe equivalente aprovado na stack.
+
+---
+
+## Governança de Regras (v2.2)
+
+**REGRA PERPÉTUA**: Toda criação/edição/remoção de regra em QUALQUER fonte DEVE ser refletida em TODAS as outras fontes.
+
+Checklist de propagação (7 passos):
+1. Versionar (governance.md changelog)
+2. Propagar para projeto atual (CLAUDE.md)
+3. Propagar para globais (CLAUDE.md global + knowledge)
+4. Propagar para sites (code/design.lzrtechnologies.com)
+5. Propagar para repos GitHub (LZR-Tech)
+6. Atualizar referências no código
+7. Enforcement automático (audit + testes)
+
+> Referência: `Elementos-reutilizaveis/knowledge/frontend/governance.md`
 
 ---
 
@@ -185,7 +255,9 @@ src/
 - Classes Tailwind com cores genéricas (`text-gray-500`, `bg-blue-600`)
 - `any` em TypeScript
 - `'use client'` sem necessidade
-- Context API para estado global
+- `useState` + `useEffect` para server data (usar React Query)
+- `router.push()` em botões de retroceder (usar `router.back()`)
+- Emojis em toasts (usar Lucide icons)
 - `rounded-xl` ou maiores
 - Fontes que não sejam Jakarta/Syne/DM Mono
 - `dark:` prefix do Tailwind (usar tokens CSS)
