@@ -14,7 +14,8 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "design:audit": "echo Design audit placeholder"
   },
   "dependencies": {
     "next": "^15.0.0",
@@ -44,6 +45,7 @@
     "autoprefixer": "^10.4.0",
     "eslint": "^9.0.0",
     "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-jsx-a11y": "^6.10.0",
     "husky": "^9.0.0",
     "postcss": "^8.4.0",
     "prettier": "^3.3.0",

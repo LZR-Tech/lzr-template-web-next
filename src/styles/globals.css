@@ -24,6 +24,7 @@
   --text-1: #182020;
   --text-2: #4A6060;
   --text-3: #8AA0A0;
+  --text-placeholder: #5A7070;
   --text-inv: #ffffff;
 
   /* Primary Accent — Lizard Green */
@@ -92,6 +93,7 @@
   --text-1: #d0e8d8;
   --text-2: #7aaa8a;
   --text-3: #4a7058;
+  --text-placeholder: #6a9478;
   --text-inv: #080f0c;
 
   --accent: #2E8B57;
@@ -183,3 +185,8 @@
     color: var(--accent-hi);
   }
 }
+
+  /* WCAG AA: placeholders usam --text-placeholder (4.5:1+), NUNCA --text-3 (~3:1) */
+  ::placeholder {
+    color: var(--text-placeholder);
+  }
