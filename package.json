@@ -28,10 +28,10 @@
     "@hookform/resolvers": "^3.9.0"
   },
   "devDependencies": {
-    "@lzr/eslint-config": "github:LZR-Tech/lzr-shared-config#main",
-    "@lzr/tsconfig": "github:LZR-Tech/lzr-shared-config#main",
-    "@lzr/prettier-config": "github:LZR-Tech/lzr-shared-config#main",
-    "@lzr/commitlint-config": "github:LZR-Tech/lzr-shared-config#main",
+    "@lzr/eslint-config": "github:LZR-Tech/lzr-eslint-config#main",
+    "@lzr/tsconfig": "github:LZR-Tech/lzr-tsconfig#main",
+    "@lzr/prettier-config": "github:LZR-Tech/lzr-prettier-config#main",
+    "@lzr/commitlint-config": "github:LZR-Tech/lzr-commitlint-config#main",
     "@commitlint/cli": "^19.0.0",
     "@commitlint/config-conventional": "^19.0.0",
     "@eslint/js": "^9.0.0",

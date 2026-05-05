@@ -212,6 +212,23 @@ toast.success("Sucesso!", { icon: createElement(Archive, { className: "w-4 h-4" 
 
 ---
 
+## Configs compartilhadas (`@lzr/*`)
+
+Este template herda 4 configs centralizadas da LZR-Tech. Vêm pré-instaladas via `npm install` e ativadas automaticamente — o dev não precisa fazer nada manual.
+
+| Config | Repo fonte | O que controla |
+|---|---|---|
+| `@lzr/tsconfig` | [LZR-Tech/lzr-tsconfig](https://github.com/LZR-Tech/lzr-tsconfig) | Strict mode TS, paths, target, lib |
+| `@lzr/eslint-config` | [LZR-Tech/lzr-eslint-config](https://github.com/LZR-Tech/lzr-eslint-config) | Zero `any`, imports organizados, naming |
+| `@lzr/prettier-config` | [LZR-Tech/lzr-prettier-config](https://github.com/LZR-Tech/lzr-prettier-config) | Aspas simples, sem `;`, 100 cols |
+| `@lzr/commitlint-config` | [LZR-Tech/lzr-commitlint-config](https://github.com/LZR-Tech/lzr-commitlint-config) | Conventional Commits |
+
+**Para mudar uma regra que afeta todos os projetos LZR**: abrir PR no repo correspondente acima. Não duplique a regra localmente.
+
+**Para override pontual** (ex.: desativar uma rule num arquivo): documente o motivo com `// eslint-disable-next-line ... -- Why: ...`.
+
+---
+
 ## Stack
 
 | Pacote | Versão | Propósito |
