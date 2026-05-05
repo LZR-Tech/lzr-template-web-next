@@ -2,7 +2,7 @@
 
 Template oficial para apps web em **Next.js App Router** da LZR Technologies.
 
-Baseado no [Engineering Handbook](https://code.lzrtechnologies.com).
+Baseado no [Engineering Handbook v2.3](https://code.lzrtechnologies.com).
 
 ## Stack
 
@@ -17,24 +17,32 @@ Baseado no [Engineering Handbook](https://code.lzrtechnologies.com).
 | **React Hook Form + Zod** | Formulários + validação |
 | **Vitest** | Testes unitários |
 | **Playwright** | Testes E2E |
+| **pnpm** | Package manager (padrão LZR) |
+| **Husky + lint-staged + commitlint** | Pre-commit / commit-msg / pre-push hooks |
 
 ## Quick Start
 
 ### 1. Criar projeto a partir deste template
 
+Recomendado: use `/new-project <nome> web` no Claude Code para automatizar todos os passos abaixo.
+
+Manualmente:
+
 ```bash
-gh repo create meu-app --template LZR-Tech/lzr-template-web-next --public --clone
+gh repo create meu-app --template LZR-Tech/lzr-template-web-next --private --clone
 cd meu-app
 ```
 
 ### 2. Instalar e rodar
 
 ```bash
-npm install
+pnpm install
 cp .env.example .env.local
-npm run dev
+pnpm dev
 # → http://localhost:3000
 ```
+
+> **Pré-requisitos**: Node.js >= 20 e pnpm >= 9. Instale o pnpm com `corepack enable` (recomendado) ou `npm i -g pnpm`.
 
 ## Estrutura de pastas
 
@@ -87,19 +95,37 @@ src/
 - Server Components por padrão
 - Lazy load componentes pesados
 
+## Git Hooks (Husky)
+
+Os hooks vêm ativos por padrão neste template:
+
+| Hook | O que roda |
+|------|-----------|
+| `pre-commit` | `lint-staged` (ESLint + Prettier nos arquivos staged) |
+| `commit-msg` | `commitlint` (Conventional Commits) |
+| `pre-push` | `pnpm typecheck && pnpm test` |
+
+Em primeira instalação, `pnpm install` já executa `prepare: husky` automaticamente.
+
 ## Scripts
 
 | Script | O que faz |
 |--------|-----------|
-| `npm run dev` | Dev server |
-| `npm run build` | Build de produção |
-| `npm run typecheck` | Verifica tipos |
-| `npm run lint` | ESLint + Next.js lint |
-| `npm run test` | Testes unitários (Vitest) |
-| `npm run test:e2e` | Testes E2E (Playwright) |
+| `pnpm dev` | Dev server |
+| `pnpm build` | Build de produção |
+| `pnpm start` | Inicia o build de produção |
+| `pnpm typecheck` | Verifica tipos |
+| `pnpm lint` | ESLint + Next.js lint |
+| `pnpm lint:fix` | ESLint com auto-fix |
+| `pnpm format` | Prettier auto-format |
+| `pnpm format:check` | Prettier dry-run |
+| `pnpm test` | Testes unitários (Vitest) |
+| `pnpm test:watch` | Vitest em watch mode |
+| `pnpm test:e2e` | Testes E2E (Playwright) |
 
 ## Referência
 
-- [LZR Engineering Handbook](https://code.lzrtechnologies.com)
+- [LZR Engineering Handbook v2.3](https://code.lzrtechnologies.com)
+- [LZR Design System v1.3](https://design.lzrtechnologies.com)
 - [Next.js Docs](https://nextjs.org/docs)
 - [React Query](https://tanstack.com/query)

@@ -1,6 +1,6 @@
 # LZR Web Template — Instruções para IA
 
-> **Engineering Handbook v2.2** — Toda alteração de regra segue `governance.md` (versionar → propagar → enforcement)
+> **Engineering Handbook v2.3** — Toda alteração de regra segue `governance.md` (versionar → propagar → enforcement)
 > Este arquivo é lido automaticamente pelo Claude Code antes de qualquer tarefa.
 
 ## Idioma
@@ -13,7 +13,7 @@
 |-----------|-----|-------------|
 | **Design System v1.3 (fundação)** | https://design.lzrtechnologies.com | Fontes, spacing, radius, motion, componentes — FIXO para todos os apps |
 | **Design System (projeto)** | https://design.lzrtechnologies.com/__PRODUCT_SLUG__ | Paleta de cores, superfícies, tom de voz, density, trilha UX — específico deste projeto |
-| **Engineering Handbook v2.2** | https://code.lzrtechnologies.com | Arquitetura, padrões de código, CI/CD, segurança, governança |
+| **Engineering Handbook v2.3** | https://code.lzrtechnologies.com | Arquitetura, padrões de código, CI/CD, segurança, governança |
 
 > **IMPORTANTE**: Ao iniciar um projeto com `/new-project`, substitua `__PRODUCT_SLUG__` pelo nome do projeto.
 
@@ -104,7 +104,7 @@ Estes elementos são **específicos deste projeto** e definidos na sub-página:
 
 ---
 
-## Arquitetura — Padrões do Handbook v2.2
+## Arquitetura — Padrões do Handbook v2.3
 
 ### Server Components por padrão
 - Só adicionar `'use client'` quando houver interatividade (state, effects, event handlers)
@@ -212,6 +212,16 @@ toast.success("Sucesso!", { icon: createElement(Archive, { className: "w-4 h-4" 
 
 ---
 
+## Tooling LZR (v2.3)
+
+- **Package manager**: `pnpm` (nunca `npm` ou `yarn`) — o lockfile é `pnpm-lock.yaml`
+- **Node**: `>=20.0.0`
+- **Git hooks ativos** via Husky:
+  - `pre-commit`: `lint-staged` (ESLint + Prettier nos arquivos staged)
+  - `commit-msg`: `commitlint` (Conventional Commits)
+  - `pre-push`: `pnpm typecheck && pnpm test`
+- **Gate zero-warnings** antes de qualquer commit/PR: `pnpm typecheck && pnpm lint && pnpm test && pnpm build` precisam terminar com **0 erros e 0 warnings**
+
 ## Stack
 
 | Pacote | Versão | Propósito |
@@ -233,7 +243,7 @@ toast.success("Sucesso!", { icon: createElement(Archive, { className: "w-4 h-4" 
 
 ---
 
-## Governança de Regras (v2.2)
+## Governança de Regras (v2.3)
 
 **REGRA PERPÉTUA**: Toda criação/edição/remoção de regra em QUALQUER fonte DEVE ser refletida em TODAS as outras fontes.
 
