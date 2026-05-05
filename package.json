@@ -14,7 +14,8 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "prepare": "husky"
   },
   "dependencies": {
     "next": "^15.0.0",
@@ -45,6 +46,7 @@
     "eslint": "^9.0.0",
     "eslint-plugin-import": "^2.29.0",
     "husky": "^9.0.0",
+    "lint-staged": "^16.0.0",
     "postcss": "^8.4.0",
     "prettier": "^3.3.0",
     "prettier-plugin-tailwindcss": "^0.6.0",
@@ -53,6 +55,10 @@
     "vitest": "^2.1.0"
   },
   "prettier": "@lzr/prettier-config",
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,mjs,cjs}": ["eslint --fix", "prettier --write"],
+    "*.{json,md,yml,yaml,css}": ["prettier --write"]
+  },
   "engines": {
     "node": ">=20.0.0"
   }
