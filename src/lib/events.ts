@@ -53,10 +53,12 @@ class EventBus {
   private handlers = new Map<string, Set<EventHandler<any>>>()
 
   on<T extends EventName>(event: T, handler: EventHandler<T>): () => void {
-    if (!this.handlers.has(event)) {
-      this.handlers.set(event, new Set())
+    let bucket = this.handlers.get(event)
+    if (!bucket) {
+      bucket = new Set()
+      this.handlers.set(event, bucket)
     }
-    this.handlers.get(event)!.add(handler)
+    bucket.add(handler)
 
     // Return unsubscribe function
     return () => {
