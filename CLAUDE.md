@@ -1,6 +1,6 @@
 # LZR Web Template — Instruções para IA
 
-> **Engineering Handbook v2.2** — Toda alteração de regra segue `governance.md` (versionar → propagar → enforcement)
+> **Engineering Handbook v2.4** — Toda alteração de regra segue `governance.md` (versionar → propagar → enforcement)
 > Este arquivo é lido automaticamente pelo Claude Code antes de qualquer tarefa.
 
 ## Idioma
@@ -13,7 +13,7 @@
 |-----------|-----|-------------|
 | **Design System v1.3 (fundação)** | https://design.lzrtechnologies.com | Fontes, spacing, radius, motion, componentes — FIXO para todos os apps |
 | **Design System (projeto)** | https://design.lzrtechnologies.com/__PRODUCT_SLUG__ | Paleta de cores, superfícies, tom de voz, density, trilha UX — específico deste projeto |
-| **Engineering Handbook v2.2** | https://code.lzrtechnologies.com | Arquitetura, padrões de código, CI/CD, segurança, governança |
+| **Engineering Handbook v2.4** | https://code.lzrtechnologies.com | Arquitetura, padrões de código, CI/CD, segurança, governança |
 
 > **IMPORTANTE**: Ao iniciar um projeto com `/new-project`, substitua `__PRODUCT_SLUG__` pelo nome do projeto.
 
@@ -104,7 +104,7 @@ Estes elementos são **específicos deste projeto** e definidos na sub-página:
 
 ---
 
-## Arquitetura — Padrões do Handbook v2.2
+## Arquitetura — Padrões do Handbook v2.4
 
 ### Server Components por padrão
 - Só adicionar `'use client'` quando houver interatividade (state, effects, event handlers)
@@ -250,7 +250,40 @@ Este template herda 4 configs centralizadas da LZR-Tech. Vêm pré-instaladas vi
 
 ---
 
-## Governança de Regras (v2.2)
+## Super-admin (multi-tenant)
+
+Em todo SaaS multi-tenant da LZR, **super-admin é role explícito, NUNCA orphan**.
+
+- Padrão técnico: `profiles.role = 'super_admin'` consultado por função SECURITY DEFINER `is_super_admin_user()`
+- Função `get_user_accessible_company_ids()` retorna **todas** as companies para super-admin
+- User sem `company_id` e sem role super_admin = orphan → **BLOQUEADO** (OWASP A01 — Broken Access Control)
+- **NUNCA** usar `IS NULL OR company_id = ...` em policies (brecha cross-tenant)
+- Implementação de referência: Green Copilot migration `0012_super_admin_rls.sql`
+
+---
+
+## Zero tolerance a warnings/erros
+
+Toda regra do Handbook é **enforced**. Nenhum PR pode ser mergeado com:
+
+- Erro ou warning de lint
+- Erro de type-check
+- Teste falhando
+- Build quebrado
+- Audit (design/handbook) com erro ou warning
+
+**Procedimento ao detectar problema** (mesmo pré-existente):
+
+1. Parar o trabalho atual
+2. Corrigir TUDO (não só o arquivo tocado)
+3. Validar `pnpm typecheck && pnpm lint && pnpm test && pnpm build` com **0 erros e 0 warnings**
+4. Só então retomar a tarefa original
+
+**Proibido**: ignorar com "pré-existente", "não toquei nesse arquivo", "arrumo depois". Se aparece, é responsabilidade de quem está codando.
+
+---
+
+## Governança de Regras (v2.4)
 
 **REGRA PERPÉTUA**: Toda criação/edição/remoção de regra em QUALQUER fonte DEVE ser refletida em TODAS as outras fontes.
 
