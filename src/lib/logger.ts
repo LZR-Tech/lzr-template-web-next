@@ -1,3 +1,9 @@
+/* eslint-disable no-console */
+// Why: este módulo é o sink central de logs do app. A regra global
+// `no-console` proíbe console.* em código de produto justamente para
+// forçar o uso deste logger — então aqui é o único lugar onde
+// console.debug/info/warn/error são permitidos.
+
 /**
  * Logger estruturado — Green Copilot
  *
