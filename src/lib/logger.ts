@@ -5,15 +5,15 @@
 // console.debug/info/warn/error são permitidos.
 
 /**
- * Logger estruturado — Green Copilot
+ * Logger estruturado.
  *
  * Dev: console colorido com timestamp e módulo
  * Prod: JSON estruturado para ingestão (Sentry/Datadog)
  *
  * Uso:
  *   import { createLogger } from '@/lib/logger';
- *   const log = createLogger('bidService');
- *   log.info('Bid created', { bidId: '123' });
+ *   const log = createLogger('userService');
+ *   log.info('User created', { userId: '123' });
  *   log.error('Failed to load', { error: err.message });
  */
 
