@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 /*
- * LZR Design System v1.3 — Green Copilot
- * Source: design.lzrtechnologies.com/greencopilot
+ * LZR Design System v1.3 — Template default tokens (placeholder neutro).
+ *
+ * Estes tokens são placeholders para o template começar a renderizar.
+ * Cada projeto LZR DEVE substituir as cores em :root e [data-theme='dark']
+ * pelos tokens definidos em https://design.lzrtechnologies.com/<projeto>.
+ *
  * Handbook: "Zero hardcoded values — use Design System tokens"
  */
 
@@ -13,123 +17,123 @@
 [data-theme='light'] {
   color-scheme: light;
 
-  /* Surfaces */
-  --bg: #F3F8F8;
+  /* Surfaces — placeholder slate */
+  --bg: #fafafa;
   --surface: #ffffff;
-  --elevated: #F3F8F8;
-  --border: #E2ECEC;
-  --border-hi: #C8D8D8;
+  --elevated: #f5f5f5;
+  --border: #e5e5e5;
+  --border-hi: #d4d4d4;
 
-  /* Text */
-  --text-1: #182020;
-  --text-2: #4A6060;
-  --text-3: #8AA0A0;
+  /* Text — placeholder slate */
+  --text-1: #171717;
+  --text-2: #525252;
+  --text-3: #a3a3a3;
   --text-inv: #ffffff;
 
-  /* Primary Accent — Lizard Green */
-  --accent: #2E8B57;
-  --accent-hi: #227A4C;
-  --accent-lo: #3DAF6E;
-  --accent-bg: rgba(46, 139, 87, 0.08);
-  --accent-bd: rgba(46, 139, 87, 0.2);
-  --accent-glow: rgba(46, 139, 87, 0.2);
+  /* Primary Accent — placeholder, substituir por cor do projeto */
+  --accent: #475569;
+  --accent-hi: #334155;
+  --accent-lo: #64748b;
+  --accent-bg: rgba(71, 85, 105, 0.08);
+  --accent-bd: rgba(71, 85, 105, 0.2);
+  --accent-glow: rgba(71, 85, 105, 0.2);
 
-  /* Secondary Accent — Amber Lizard */
-  --accent2: #C97B2E;
-  --accent2-hi: #E08C3A;
-  --accent2-lo: #F0A855;
-  --accent2-bg: rgba(201, 123, 46, 0.06);
-  --accent2-bd: rgba(201, 123, 46, 0.18);
-  --accent2-glow: rgba(201, 123, 46, 0.15);
+  /* Secondary Accent — placeholder, substituir por cor do projeto */
+  --accent2: #94a3b8;
+  --accent2-hi: #64748b;
+  --accent2-lo: #cbd5e1;
+  --accent2-bg: rgba(148, 163, 184, 0.06);
+  --accent2-bd: rgba(148, 163, 184, 0.18);
+  --accent2-glow: rgba(148, 163, 184, 0.15);
 
   /* Semantic */
-  --ok: #154D30;
-  --ok-bg: #EDFAF4;
-  --ok-bd: #CBF0DC;
-  --warn: #92680A;
-  --warn-bg: #FFFBEB;
-  --warn-bd: #FDE68A;
-  --err: #991B1B;
-  --err-bg: #FFF1F2;
-  --err-bd: #FECDD3;
-  --info: #1E3A5F;
-  --info-bg: #EFF8FF;
-  --info-bd: #BFDBFE;
+  --ok: #15803d;
+  --ok-bg: #f0fdf4;
+  --ok-bd: #bbf7d0;
+  --warn: #a16207;
+  --warn-bg: #fffbeb;
+  --warn-bd: #fde68a;
+  --err: #b91c1c;
+  --err-bg: #fef2f2;
+  --err-bd: #fecaca;
+  --info: #1d4ed8;
+  --info-bg: #eff6ff;
+  --info-bd: #bfdbfe;
 
   /* Shadows */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.10), 0 4px 12px rgba(0, 0, 0, 0.06);
-  --shadow-accent: 0 4px 16px rgba(46, 139, 87, 0.18);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-accent: 0 4px 16px rgba(71, 85, 105, 0.18);
 
   /* Gradients */
-  --grad-brand: linear-gradient(135deg, #1A6640 0%, #3DAF6E 65%, #C97B2E 100%);
-  --grad-surface: linear-gradient(135deg, #F3F8F8 0%, #ffffff 100%);
+  --grad-brand: linear-gradient(135deg, #334155 0%, #64748b 65%, #94a3b8 100%);
+  --grad-surface: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
   --grad-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-  --grad-hero: linear-gradient(160deg, #F3F8F8 0%, #ffffff 40%, rgba(46, 139, 87, 0.06) 100%);
+  --grad-hero: linear-gradient(160deg, #fafafa 0%, #ffffff 40%, rgba(71, 85, 105, 0.06) 100%);
 
-  /* Data Visualization */
-  --dv-1: #3DAF6E;
+  /* Data Visualization — placeholder, substituir por paleta do projeto */
+  --dv-1: #475569;
   --dv-2: #4a9ab8;
   --dv-3: #c8a030;
   --dv-4: #c05858;
   --dv-5: #9b6bc8;
   --dv-6: #c87a3a;
   --dv-7: #4ab8a0;
-  --dv-8: #8aaa3D;
+  --dv-8: #8aaa3d;
 }
 
-/* ===== DARK MODE — Floresta Noturna ===== */
+/* ===== DARK MODE ===== */
 [data-theme='dark'] {
   color-scheme: dark;
 
-  --bg: #080f0c;
-  --surface: #0d1a14;
-  --elevated: #12221a;
-  --border: #1a3028;
-  --border-hi: #254038;
+  --bg: #0a0a0a;
+  --surface: #171717;
+  --elevated: #262626;
+  --border: #404040;
+  --border-hi: #525252;
 
-  --text-1: #d0e8d8;
-  --text-2: #7aaa8a;
-  --text-3: #4a7058;
-  --text-inv: #080f0c;
+  --text-1: #fafafa;
+  --text-2: #a3a3a3;
+  --text-3: #737373;
+  --text-inv: #0a0a0a;
 
-  --accent: #2E8B57;
-  --accent-hi: #3DAF6E;
-  --accent-lo: #57C98A;
-  --accent-bg: rgba(46, 139, 87, 0.12);
-  --accent-bd: rgba(46, 139, 87, 0.28);
-  --accent-glow: rgba(46, 139, 87, 0.35);
+  --accent: #94a3b8;
+  --accent-hi: #cbd5e1;
+  --accent-lo: #64748b;
+  --accent-bg: rgba(148, 163, 184, 0.12);
+  --accent-bd: rgba(148, 163, 184, 0.28);
+  --accent-glow: rgba(148, 163, 184, 0.35);
 
-  --accent2: #C97B2E;
-  --accent2-hi: #E08C3A;
-  --accent2-lo: #F0A855;
-  --accent2-bg: rgba(201, 123, 46, 0.10);
-  --accent2-bd: rgba(201, 123, 46, 0.22);
-  --accent2-glow: rgba(201, 123, 46, 0.20);
+  --accent2: #64748b;
+  --accent2-hi: #94a3b8;
+  --accent2-lo: #475569;
+  --accent2-bg: rgba(100, 116, 139, 0.1);
+  --accent2-bd: rgba(100, 116, 139, 0.22);
+  --accent2-glow: rgba(100, 116, 139, 0.2);
 
-  --ok: #3DAF6E;
-  --ok-bg: rgba(61, 175, 110, 0.10);
-  --ok-bd: rgba(61, 175, 110, 0.25);
-  --warn: #c8a030;
-  --warn-bg: rgba(200, 160, 48, 0.10);
-  --warn-bd: rgba(200, 160, 48, 0.25);
-  --err: #c05858;
-  --err-bg: rgba(192, 88, 88, 0.10);
-  --err-bd: rgba(192, 88, 88, 0.25);
-  --info: #4a9ab8;
-  --info-bg: rgba(74, 154, 184, 0.10);
-  --info-bd: rgba(74, 154, 184, 0.25);
+  --ok: #4ade80;
+  --ok-bg: rgba(74, 222, 128, 0.1);
+  --ok-bd: rgba(74, 222, 128, 0.25);
+  --warn: #facc15;
+  --warn-bg: rgba(250, 204, 21, 0.1);
+  --warn-bd: rgba(250, 204, 21, 0.25);
+  --err: #f87171;
+  --err-bg: rgba(248, 113, 113, 0.1);
+  --err-bd: rgba(248, 113, 113, 0.25);
+  --info: #60a5fa;
+  --info-bg: rgba(96, 165, 250, 0.1);
+  --info-bd: rgba(96, 165, 250, 0.25);
 
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.03);
   --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04);
-  --shadow-accent: 0 4px 20px rgba(46, 139, 87, 0.3);
+  --shadow-accent: 0 4px 20px rgba(148, 163, 184, 0.3);
 
-  --grad-brand: linear-gradient(135deg, #1A6640 0%, #2E8B57 65%, #C97B2E 100%);
-  --grad-surface: linear-gradient(135deg, #0d1a14 0%, #12221a 100%);
+  --grad-brand: linear-gradient(135deg, #334155 0%, #64748b 65%, #94a3b8 100%);
+  --grad-surface: linear-gradient(135deg, #171717 0%, #262626 100%);
   --grad-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-  --grad-hero: linear-gradient(160deg, #080f0c 0%, #0d1a14 40%, rgba(46, 139, 87, 0.08) 100%);
+  --grad-hero: linear-gradient(160deg, #0a0a0a 0%, #171717 40%, rgba(148, 163, 184, 0.08) 100%);
 }
 
 /* ===== SHARED TOKENS ===== */
@@ -173,7 +177,12 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     color: var(--text-1);
     font-family: var(--font);
   }
