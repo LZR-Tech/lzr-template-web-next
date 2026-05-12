@@ -2,6 +2,7 @@
   "name": "lzr-web",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.22.0",
   "description": "App Web LZR Technologies — Next.js App Router",
   "scripts": {
     "dev": "next dev",
